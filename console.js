@@ -1,17 +1,29 @@
 const sleep = (milliseconds) => {return new Promise(resolve => setTimeout(resolve, milliseconds));};
 
-async function x(vid, click) {
+
+let op = document.querySelectorAll("button");
+
+let Button = op[0];
+
+for(let i = 0; i < op.length; i++) {
+    let re = /(data-e2e="arrow-right")/gm;
+     if(re.test(new XMLSerializer().serializeToString(op[i]))) {
+         Button = op[i]
+     }
+}
+
+async function x() {
     while (true){
         await sleep(1000);
-        document.querySelector(vid).onended = function() {document.querySelector(click).click()}
+        document.querySelectorAll("video")[0].onended = function() {Button.click()}
     }
 }
-async function start(vid, click) {
+async function start() {
     while(true){
         try{
-            x(vid, click)
+            x()
         } catch(error){
-            x(vid, click)
+            x()
         }
         await sleep(1000)
     }
@@ -19,5 +31,4 @@ async function start(vid, click) {
 
 
 
-start("#app > div.tiktok-19fglm-DivBodyContainer.e1irlpdw0 > div.tiktok-7t2h2f-DivBrowserModeContainer.ez1vs6g0 > div.tiktok-5uccoo-DivVideoContainer.ez1vs6g27 > div.tiktok-duttz2-DivVideoWrapper.ez1vs6g9 > div.tiktok-1jxhpnd-DivContainer.e1yey0rl0 > div > video", "#app > div.tiktok-19fglm-DivBodyContainer.e1irlpdw0 > div.tiktok-7t2h2f-DivBrowserModeContainer.ez1vs6g0 > div.tiktok-5uccoo-DivVideoContainer.ez1vs6g27 > button.tiktok-2xqv0y-ButtonBasicButtonContainer-StyledVideoSwitchV2.ez1vs6g15")
-// start( vid_JS_Path, next_button_JS_Path)
+start()
