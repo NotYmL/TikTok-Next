@@ -1,6 +1,5 @@
 const sleep = (milliseconds) => {return new Promise(resolve => setTimeout(resolve, milliseconds));};
 
-
 let op = document.querySelectorAll("button");
 
 let Button = op[0];
@@ -28,7 +27,5 @@ async function start() {
         await sleep(1000)
     }
 }
-
-
 
 start()
