@@ -1,31 +1,40 @@
 const sleep = (milliseconds) => {return new Promise(resolve => setTimeout(resolve, milliseconds));};
 
-let op = document.querySelectorAll("button");
-
-let Button = op[0];
-
-for(let i = 0; i < op.length; i++) {
-    let re = /(data-e2e="arrow-right")/gm;
-     if(re.test(new XMLSerializer().serializeToString(op[i]))) {
-         Button = op[i]
-     }
-}
-
 async function x() {
+
+   let Button = null;
+
+   while(Button == null){
+       let op = document.querySelectorAll("button");
+
+       console.log(Button)
+       console.log(op)
+
+       for(let i = 0; i < op.length; i++) {
+            let re = /(data-e2e="arrow-right")/gm;
+            if(re.test(new XMLSerializer().serializeToString(op[i]))) {
+                Button = op[i]
+                console.log(Button)
+
+            }
+        }
+	    await sleep(500)
+    }
+    console.log(Button)
+    console.log("nigger")
+
     while (true){
         await sleep(1000);
         document.querySelectorAll("video")[0].onended = function() {Button.click()}
     }
 }
 async function start() {
-    while(true){
-        try{
-            x()
-        } catch(error){
-            x()
-        }
-        await sleep(1000)
-    }
+     try{
+          x()
+     } catch(error){
+         start()
+     }
+     await sleep(1000)
 }
 
 start()
